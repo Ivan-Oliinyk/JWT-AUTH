@@ -1,4 +1,5 @@
 const userService = require("../service/userService");
+const { CLIENT_URL } = require("../config");
 
 class UserController {
   async registrationUser(req, res, next) {
@@ -41,6 +42,9 @@ class UserController {
 
   async activate(req, res, next) {
     try {
+      const activationLink = req.params.link;
+      await userService.activate(activationLink);
+      return res.redirect(CLIENT_URL);
     } catch (e) {
       console.log(e);
     }

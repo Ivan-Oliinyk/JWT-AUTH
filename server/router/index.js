@@ -17,8 +17,8 @@ const router = new Router();
 router.post(REGISTRATION, registrationUser);
 router.post(LOGIN, loginUser);
 router.post(LOGOUT, logoutUser);
-router.get(REFRESH + "/:link", refresh);
-router.get(ACTIVATE, activate);
+router.get(REFRESH, refresh);
+router.get(ACTIVATE + "/:link", activate);
 router.get(USERS, getUsers);
 
 module.exports = router;

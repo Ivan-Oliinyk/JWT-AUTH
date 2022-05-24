@@ -10,6 +10,8 @@ const {
   ROUTERS: { API, ACTIVATE },
 } = require("../config");
 
+// console.log(API_URL, API, ACTIVATE);
+
 class UserService {
   async registestration(email, password) {
     // Проверяем если с таким емейлом пользователь
@@ -36,7 +38,7 @@ class UserService {
     // отправляем ссылку на почту
     await mailService.sendActivationMail(
       email,
-      `${API_URL}/${API}/${ACTIVATE}/${activationLink}`
+      `${API_URL}${API}${ACTIVATE}/${activationLink}`
     );
 
     //генерируем рефреш токены
@@ -46,6 +48,18 @@ class UserService {
 
     // возвращаем информацию о пользователе и токены
     return { ...tokens, user: userDto };
+  }
+
+  async activate(activationLink) {
+    const user = await UserModel.findOne({ activationLink });
+
+    if (!user) {
+      throw new Error("Invalid activation link !");
+    }
+
+    user.isActivated = true;
+
+    await user.save();
   }
 }
 

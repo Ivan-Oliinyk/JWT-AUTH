@@ -4,8 +4,6 @@ const {
   SMTP: { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD },
 } = require("../config");
 
-console.log(SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD);
-
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
